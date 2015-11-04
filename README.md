@@ -9,6 +9,7 @@ The script is build for python 2.7 and is using pymssql
 ``` pip install pymssql ```
 
 Ubuntu also needs:
+
 ``` sudo apt-get install freetds-dev ```
 
 ## How to use
