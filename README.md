@@ -4,4 +4,4 @@ This is a script made to clean up MS SQL databases.
 
 Dependency:
 
-''' pip install pymssql '''
+``` pip install pymssql ```
