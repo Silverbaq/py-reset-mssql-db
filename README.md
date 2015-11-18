@@ -21,21 +21,26 @@ Ubuntu also needs:
 Edit the run function of the app.py so that it fits your desire
 
 ```
-  def run():
-    host = 'HOST_ADDRESS'
-    user = 'USER'
-    password = 'PASSWORD'
-    database = "DATABASE"
-
-
+# Main function
+def run():
     count = 0
 
     # Chance 0 to the amount of times to loop
+	## Edit this part so it fits your settings.
     while (count < 0):
-        reset_db(host, user+count, password+count, database)
+        host = 'HOST_ADDRESS'
+        usr = 'USER%s' % (str(count))
+        pas = 'PASSWORD%s' % (str(count))
+        db = 'DATABASE%s' % (str(count))
+		
+        print 'usr %s, password %s, db %s' % (usr, pas, db)
+		
+        reset_db('ealdb1.eal.local', usr, pas, db)
         count = count + 1
+		
 
     print '[*] Finished'
+
 ```
 
 Afterwards you can run the script with:
