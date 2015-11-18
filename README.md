@@ -4,7 +4,6 @@
 This is a script made to clean up MS SQL databases.
 It will:
 * Drop all non-system stored procedures
-* Drop all views
 * Drop all Foreign Key constraints
 * Drop all Primary Key constraints
 * Drop all tables

@@ -27,8 +27,9 @@ def run():
     count = 0
 
     # Chance 0 to the amount of times to loop
+	## Edit this part so it fits your settings.
     while (count < 0):
-        reset_db(host, user+count, password+count, database)
+        reset_db(host, user+str(count), password+str(count), database)
         count = count + 1
 
     print '[*] Finished'
