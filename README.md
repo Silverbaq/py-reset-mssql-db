@@ -35,7 +35,7 @@ def run():
 		
         print 'usr %s, password %s, db %s' % (usr, pas, db)
 		
-        reset_db('ealdb1.eal.local', usr, pas, db)
+        reset_db(host, usr, pas, db)
         count = count + 1
 		
 
