@@ -1,14 +1,25 @@
 sql_query = """
--- disable referential integrity
-EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL' 
-GO 
+-- Drops Tables
+DECLARE @Sql NVARCHAR(500) DECLARE @Cursor CURSOR
 
-EXEC sp_MSForEachTable 'DELETE FROM ?' 
-GO 
+SET @Cursor = CURSOR FAST_FORWARD FOR
+SELECT DISTINCT sql = 'ALTER TABLE [' + tc2.TABLE_NAME + '] DROP [' + rc1.CONSTRAINT_NAME + ']'
+FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc1
+LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc2 ON tc2.CONSTRAINT_NAME =rc1.CONSTRAINT_NAME
 
--- enable referential integrity again 
-EXEC sp_MSForEachTable 'ALTER TABLE ? WITH CHECK CHECK CONSTRAINT ALL' 
-GO
+OPEN @Cursor FETCH NEXT FROM @Cursor INTO @Sql
+
+WHILE (@@FETCH_STATUS = 0)
+BEGIN
+Exec SP_EXECUTESQL @Sql
+FETCH NEXT FROM @Cursor INTO @Sql
+END
+
+CLOSE @Cursor DEALLOCATE @Cursor
+
+
+EXEC sp_MSForEachTable 'DROP TABLE ?'
+
 
 -- Drops Stored Procedues
 declare @procName varchar(500)
@@ -24,5 +35,5 @@ begin
 end
 close cur
 deallocate cur
-GO
+
 """
